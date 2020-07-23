@@ -1,0 +1,39 @@
+.primaryColor {
+    background-color: rgb(51, 163, 255);
+}
+
+.navBar {
+    /* position: fixed; */
+    width: -webkit-fill-available;
+    width: -moz-available;
+    width: fill-available;
+    margin-bottom: 10px;
+}
+
+.slotElement {
+    border: 1px solid #ccc;
+    width: -webkit-fill-available;
+    width: -moz-available;
+    width: fill-available;
+    height: 30px;
+    border-radius: 3px;
+}
+
+.loginContainer {
+    margin: 10px;
+    display: grid;
+    justify-content: center;
+}
+
+.slot {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+label {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+input[type=text], input[type=password] {}
