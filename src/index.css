@@ -91,10 +91,39 @@ label {
     width: 100%;
 }
 
+.cardDisplay {
+    display: grid;
+    gap: 5px;
+}
+
 @media (orientation: landscape) {
     .resultsContainer {
         grid-template-columns: 1fr;
         grid-template-rows: minmax(80px, 1fr) 8fr;
+    }
+    @media screen and (max-width: 540px) {
+        .cardDisplay {
+            grid-template-columns: 1fr 1fr;
+            column-gap: 10px;
+        }
+    }
+    @media screen and (max-width: 720px) {
+        .cardDisplay {
+            grid-template-columns: 1fr 1fr 1fr;
+            column-gap: 20px;
+        }
+    }
+    @media screen and (min-width: 721px) {
+        .cardDisplay {
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            column-gap: 20px;
+        }
+    }
+    @media screen and (min-width: 1000px) {
+        .cardDisplay {
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            column-gap: 25px;
+        }
     }
     .viewChoice {
         grid-template-columns: 1fr 1fr 1fr;
@@ -112,6 +141,9 @@ label {
 }
 
 @media (orientation: portrait) {
+    .cardDisplay {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
     .resultsContainer {
         grid-template-columns: 1fr 2fr;
         grid-template-rows: 1fr;
@@ -136,7 +168,24 @@ label {
     border: 1px solid #ccc;
     border-radius: 3px;
     display: grid;
-    grid-template-rows: 1fr 2fr 1fr;
-    min-height: 10vh;
-    max-height: 20vh;
+    grid-template-rows: 2fr 2fr 1fr;
+    min-height: 8vh;
+    max-height: 14vh;
+    word-wrap: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.infoCard>div:nth-of-type(1), .infoCard>div:nth-of-type(2) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.infoCard>div:nth-of-type(2) {
+    background-color: #f0eaea;
+}
+
+.maxSize {
+    width: 100%;
 }

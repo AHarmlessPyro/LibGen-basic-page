@@ -46,13 +46,13 @@ class LoginPage extends React.Component {
         if (userValue.user === this.user1.user) {
             if (userValue.pwd === this.user1.pwd) {
 
-                this.props.successFunc('user1');
+                this.props.successFunc(userValue.user);
             }
 
         } else if (userValue.user === this.user2.user) {
             if (userValue.pwd === this.user2.pwd) {
 
-                this.props.successFunc('user2');
+                this.props.successFunc(userValue.user);
             }
 
         } else {

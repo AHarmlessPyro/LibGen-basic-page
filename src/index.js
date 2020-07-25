@@ -34,7 +34,7 @@ class App extends React.Component {
             navHeight: '6vh',
             loginSuccess: displayLogin,
             currentMode: "Arrivals",
-            rerender: false
+            rerender: false,
         }
 
         this.modes = ['Collections', 'Explore', 'Arrivals'];
