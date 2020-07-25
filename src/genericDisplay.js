@@ -46,7 +46,7 @@ const Card = (props) => {
     }
     return (
         <div
-            className="infoCard"
+            className="infoCard border"
             key={props.md5}>
             {/*Optionally add images. Image origins are resetricted, 
                 so that's a moot point right now*/}
@@ -64,10 +64,12 @@ const SearchBar = (props) => {
     let options = props.options.map((value) => {
         return (<option value={value}>{value}</option>)
     })
-    let select = <select name="search_opts" id="search_in">{options}</select>
-    let searchBar = <input type="text" placeholder="Search Query Here" id="search_query"></input>
-    let searchBtn = <ButtonCustom classes="primaryColor" onClickFunction={() => { debugger; props.onClick(document.getElementById("search_in").value, document.getElementById("search_query").value) }}>Search</ButtonCustom>
-    return <div>{select}{searchBar}{searchBtn}</div>
+    let select = <select className="border" name="search_opts" id="search_in">{options}</select>
+    let searchBar = <input className="border" type="text" placeholder="Search Query Here" id="search_query"></input>
+    let searchBtn = <ButtonCustom classes="primaryColor border" onClickFunction={() => { debugger; props.onClick(document.getElementById("search_in").value, document.getElementById("search_query").value) }}>Search</ButtonCustom>
+    return <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "5px" }}>
+        {select}{searchBar} {searchBtn}
+    </div >
 }
 
 
@@ -182,7 +184,7 @@ class GenericDisplay extends React.Component {
         );
 
         let internalContent =
-            <div>
+            <div style={{ display: "grid", gap: "5px" }}>
                 <SearchBar options={["title", "author", "series", "periodical", "publisher", "year", "identifier",
                     "md5", "extension"]} onClick={(search_in, search_query) => {
                         this.setState({

@@ -71,20 +71,20 @@ class LoginPage extends React.Component {
                 <div className="slot">
                     <label htmlFor="userEntry">Username</label>
                     <br></br>
-                    <input type="text" className="slotElement" id="userEntry" ></input>
+                    <input type="text" className="slotElement border" id="userEntry" ></input>
                 </div>
 
                 {/*passwordName Entry*/}
                 <div className="slot">
                     <label htmlFor="passwordEntry">Password</label>
                     <br></br>
-                    <input type="password" className="slotElement" id="passwordEntry"></input>
+                    <input type="password" className="slotElement border" id="passwordEntry"></input>
                 </div>
 
                 {/*login button*/}
                 <div className="slot">
                     <button
-                        className="primaryColor slotElement"
+                        className="primaryColor slotElement border"
                         style={{ width: "100%", border: "0px", height: "30px", borderRadius: "3px" }}
                         onClick={this.loginFunc.bind(this)}>
                         Login
