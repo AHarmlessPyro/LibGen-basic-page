@@ -39,25 +39,26 @@ const Card = (props) => {
     )
     if (props.addBtn) {
         btnElement.push(<div>
-            <ButtonCustom classes="primaryColor" onClickFunction={(props.addFunc)}>
+            <ButtonCustom classes="primaryColor" onClickFunction={() => { props.addFunc({ props }) }}>
                 +Add
             </ButtonCustom>
         </div>)
     }
-    return (
-        <div
-            className="infoCard border"
-            key={props.md5}>
-            {/*Optionally add images. Image origins are resetricted, 
+    // if (props.)
+        return (
+            <div
+                className="infoCard border"
+                key={props.md5}>
+                {/*Optionally add images. Image origins are resetricted, 
                 so that's a moot point right now*/}
-            {/* <img src={imgSrc}></img> */}
-            <div>{props.author}</div>
-            <div>{props.title}</div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", justifyItems: "center" }}>
-                {btnElement}
-            </div>
-        </div >
-    )
+                {/* <img src={imgSrc}></img> */}
+                <div>{props.author}</div>
+                <div>{props.title}</div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", justifyItems: "center" }}>
+                    {btnElement}
+                </div>
+            </div >
+        )
 }
 
 const SearchBar = (props) => {
@@ -99,21 +100,24 @@ class GenericDisplay extends React.Component {
         }
     }
 
-    addBook() {
-
+    addBook(commitObj) {
+        localStorage.setItem(commitObj.props.md5, JSON.stringify(commitObj.props.obj))
     }
 
     createCardElement(data, haveAddBtn = true) {
         let elementArray = data.map((value) => {
             let element = <Card
                 key={value.md5}
+                id={value.id}
                 author={value.author || value.publisher}
                 title={value.title}
                 md5={value.md5}
                 covers={value.coverurl}
                 filesize={value.filesize}
                 URL={this.state.URL}
-                addBtn={haveAddBtn}>
+                addBtn={haveAddBtn}
+                addFunc={this.addBook}
+                obj={value}>
             </Card>
             return (element);
         })
@@ -210,6 +214,8 @@ class GenericDisplay extends React.Component {
 
     componentDidUpdate() {
         if (this.props.rerender) {
+            this.props.setRenderingStatus(false);
+            this.setState({ genericDisplay: <Loader></Loader> });
             if (this.props.mode === 'Arrivals') {
                 axios.get(`${baseURL}/arrivals/10`, {}, {
                     headers: {
@@ -261,28 +267,26 @@ class GenericDisplay extends React.Component {
                 this.props.setRenderingStatus(false);
                 this.setState({ genericDisplay: <Loader></Loader> });
             } else if (this.props.mode === 'Collections') {
+                let storedCards = [];
+                for (let i in localStorage) {
+                    try {
+                        let data = JSON.parse(localStorage[i]);
+                        if (data.md5 !== undefined) {
+                            storedCards.push(data);
+                        }
+                    } catch{
+                        // do nothing. Bad practice
+                    }
+                }
+                let collectionsElement = <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "5px" }}>
+                    {this.createCardElement(storedCards, false)}
+                </div>
 
-                this.props.setRenderingStatus(false);
-                this.setState({ genericDisplay: <Loader></Loader> });
+                this.setState({ genericDisplay: collectionsElement })
             }
         }
     }
     render() {
-        console.log(this.props.mode);
-        // if (this.props.mode === 'Collections') {
-        // } else if (this.props.mode === 'Arrivals') {
-        //     return (
-        //         <div id={"contentDisplay"}>
-        //             {this.state.arrivalDisplay}
-        //         </div>
-        //     )
-        // } else if (this.props.mode === 'Explore') {
-        //     return (
-        //         <div id={"contentDisplay"}>
-        //             {this.state.exploreDisplay}
-        //         </div>
-        //     )
-        // }
         return (
             <div id="contentDisplay">
                 {this.state.genericDisplay}
