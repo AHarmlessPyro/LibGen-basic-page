@@ -1,5 +1,26 @@
 .primaryColor {
     background-color: rgb(51, 163, 255);
+    color: whitesmoke;
+}
+
+img.logoImgFull {
+    width: 30vw;
+}
+
+img.logoImgNav {
+    height: 100%;
+}
+
+.primaryOppositeColor {
+    background-color: whitesmoke;
+    color: rgb(51, 163, 255);
+}
+
+.basicButton {
+    border: 1px solid #ccc;
+    width: 9vw;
+    border-radius: 3px;
+    height: 100%;
 }
 
 .navBar {
@@ -8,6 +29,10 @@
     width: -moz-available;
     width: fill-available;
     margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-content: center;
+    justify-items: center;
 }
 
 .slotElement {
@@ -34,6 +59,84 @@ label {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.textFade {
+    animation: fadeOutText 1s ease-out 3s;
+    opacity: 100%;
+    display: inline;
+}
 
+.errorText {
+    color: red;
+}
 
-input[type=text], input[type=password] {}
+@keyframes fadeOutText {
+    0% {
+        opacity: 100%;
+    }
+    100% {
+        opacity: 0%;
+        display: none;
+    }
+}
+
+.resultsContainer {
+    display: grid;
+    height: -moz-available;
+    height: fill-available;
+    height: -webkit-fill-available;
+    gap: 10px;
+}
+
+.choiceButton {
+    width: 100%;
+}
+
+@media (orientation: landscape) {
+    .resultsContainer {
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(80px, 1fr) 8fr;
+    }
+    .viewChoice {
+        grid-template-columns: 1fr 1fr 1fr;
+        column-gap: 20px;
+    }
+    .arrivalButton {
+        justify-self: flex-end;
+    }
+    .exploreButton {
+        justify-self: center;
+    }
+    .collectionsButton {
+        justify-self: flex-start;
+    }
+}
+
+@media (orientation: portrait) {
+    .resultsContainer {
+        grid-template-columns: 1fr 2fr;
+        grid-template-rows: 1fr;
+    }
+    .viewChoice {
+        grid-template-rows: 80px 80px 80px;
+        row-gap: 20px;
+        height: 100%;
+    }
+    .arrivalButton {
+        align-self: flex-end;
+    }
+    .exploreButton {
+        align-self: center;
+    }
+    .collectionsButton {
+        align-self: flex-start;
+    }
+}
+
+.infoCard {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr;
+    min-height: 10vh;
+    max-height: 20vh;
+}

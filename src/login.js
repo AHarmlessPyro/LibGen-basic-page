@@ -1,13 +1,19 @@
 import React from 'react';
 
 
+/* Props : 
+successFunc : On Login success for $user, do something
+failFunc : On Login fail, do something
+*/
+
 const ErrorMessageDisplay = (props) => {
-    if (props.errorRaised) {
-        document.getElementById('loginError').setAttribute
-        window.setTimeout(() => {
-            return "";
-        }, 4000)
-        return "Wrong username/password";
+    //debugger;
+    if (!props.errorRaised && props.canDisplay) {
+        //document.getElementById('loginError').setAttribute
+        // window.setTimeout(() => {
+        //     return "";
+        // }, 4000)
+        return <label className="textFade errorText">Unknown username/password</label>;
     }
     return "";
 }
@@ -16,20 +22,27 @@ class LoginPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: false
+            errorMessageCheck: false
         }
 
         this.user1 = { user: "reader1", pwd: "reader1" };
         this.user2 = { user: "reader2", pwd: "reader2" };
+        this.timerFunc = undefined;
     }
 
     loginFunc(evt) {
         evt.preventDefault();
 
+        this.setState({ errorMessageCheck: true });
+        this.timerFunc = window.setTimeout(() => {
+            this.setState({ errorMessageCheck: false });
+        }, 4000);
+
         let userValue = {
             user: document.getElementById('userEntry').value,
             pwd: document.getElementById('passwordEntry').value
         }
+
         if (userValue.user === this.user1.user) {
             if (userValue.pwd === this.user1.pwd) {
 
@@ -43,11 +56,12 @@ class LoginPage extends React.Component {
             }
 
         } else {
-            let expiry = new Date();
-            expiry.setTime(expiry.getTime() + (60 * 60 * 1000)); // current time + 1 hour in ms                
-
-            document.cookie = `user=user2; expires=${expiry}`;
+            this.props.failFunc();
         }
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.timerFunc);
     }
 
     render() {
@@ -72,15 +86,20 @@ class LoginPage extends React.Component {
                     <button
                         className="primaryColor slotElement"
                         style={{ width: "100%", border: "0px", height: "30px", borderRadius: "3px" }}
-                        onClick={this.loginFunc.bind(this)}
-                    >
+                        onClick={this.loginFunc.bind(this)}>
                         Login
                     </button>
                 </div>
 
                 {/*Error*/}
                 <div id="loginError">
-                    <ErrorMessageDisplay errorRaised={this.props.loginSuccess}></ErrorMessageDisplay>
+                    <ErrorMessageDisplay
+                        /* Check if login button has been clicked*/
+                        canDisplay={this.state.errorMessageCheck}
+                        /* Check if login was a success*/
+                        errorRaised={this.props.loginSuccess}>
+
+                    </ErrorMessageDisplay>
                 </div>
             </div>
         )

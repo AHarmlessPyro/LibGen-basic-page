@@ -1,7 +1,12 @@
 import React from 'react';
 
 class ResultsPage extends React.Component {
+
     render() {
-        return (<div>test</div>);
+        return (
+            <div className="resultsContainer">
+                {this.props.childrenm}
+            </div>
+        );
     }
 } export default ResultsPage;

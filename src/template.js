@@ -18,12 +18,11 @@ class PageTemplate extends React.Component {
     }
 
     render() {
-
         return (
             <div className="primaryColor navBar" style={{ "height": this.props.height }}>
-                {this.props.leftComponent}
-
-                {this.props.rightComponent}
+                {this.props.leftComponent === undefined ? <div></div> : this.props.leftComponent}
+                {this.props.centerComponent === undefined ? <div></div> : this.props.centerComponent}
+                {this.props.rightComponent === undefined ? <div></div> : this.props.rightComponent}
             </div>
 
         )
